@@ -10,21 +10,39 @@ def celsius_to_fahrenheit(celsius):
 LEARNING_RATE = 0.0001
 celsius_values = range(-50,50)
 SAMPLE_SIZE = len(celsius_values)
-fahrenheit_values = [celsius_to_fahrenheit(i) for i in celsius_values]
+fahrenheit_values = []
+
+for i in range(SAMPLE_SIZE):
+    fahrenheit_values.insert(i, celsius_to_fahrenheit(celsius_values[i]))
 
 weight = random.random()
 bias = random.random()
 
 
 def forward():
-    output = [i * weight + bias for i in celsius_values]
-    loss = sum([ math.pow(output[i] - fahrenheit_values[i], 2) for i in range(len(celsius_values))]) / SAMPLE_SIZE
+    output = []
+
+    for i in range(SAMPLE_SIZE):
+        output.insert(i, celsius_values[i] * weight + bias)
+
+    cumulative_loss = 0
+
+    for i in range(SAMPLE_SIZE):
+        cumulative_loss = cumulative_loss + math.pow(output[i] - fahrenheit_values[i], 2)
+
+    loss = cumulative_loss / SAMPLE_SIZE
     return output, loss
 
 
 def backward(output):
-    grad_output = [ 2*(output[i] - fahrenheit_values[i])/SAMPLE_SIZE for i in range(len(celsius_values))]
-    grad_weight = sum([output[i] * grad_output[i] for i in range(len(celsius_values))])
+    grad_output = []
+    for i in range(SAMPLE_SIZE):
+        grad_output.insert(i, 2*(output[i] - fahrenheit_values[i])/SAMPLE_SIZE)
+
+    grad_weight = 0
+    for i in range(SAMPLE_SIZE):
+        grad_weight = grad_weight + output[i] * grad_output[i]
+
     grad_bias = sum(grad_output)
 
     return grad_weight, grad_bias
