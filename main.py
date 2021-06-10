@@ -5,8 +5,6 @@ import math
 def celsius_to_fahrenheit(celsius):
     return (celsius * 9 / 5) + 32
 
-
-
 LEARNING_RATE = 0.0001
 celsius_values = range(-50,50)
 SAMPLE_SIZE = len(celsius_values)
@@ -17,7 +15,6 @@ for i in range(SAMPLE_SIZE):
 
 weight = random.random()
 bias = random.random()
-
 
 def forward():
     output = []
@@ -33,7 +30,6 @@ def forward():
     loss = cumulative_loss / SAMPLE_SIZE
     return output, loss
 
-
 def backward(output):
     grad_output = []
     for i in range(SAMPLE_SIZE):
@@ -47,7 +43,6 @@ def backward(output):
 
     return grad_weight, grad_bias
 
-
 def update_parameters(grad_weight, grad_bias):
     global weight, bias
 
@@ -57,18 +52,15 @@ def update_parameters(grad_weight, grad_bias):
     weight = weight - descent_grad_weight
     bias = bias - descent_grad_bias
 
-
 def train():
     for t in range(10000):
         output, loss = forward()
         grad_weight, grad_bias = backward(output)
         update_parameters(grad_weight, grad_bias)
 
-
 def get_predicted_fahrenheit_values():
     prediction, loss = forward()
     return prediction
-
 
 predicted_before_training = get_predicted_fahrenheit_values()
 train()
