@@ -1,0 +1,1 @@
+Detailed explanation here: https://noobest.medium.com/single-neuron-neural-network-on-python-with-mathematical-proof-ed6d6ea18be
